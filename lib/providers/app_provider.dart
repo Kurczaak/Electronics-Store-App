@@ -13,6 +13,16 @@ class AppProvider extends ChangeNotifier {
   Key key = UniqueKey();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   bool _initialized = false;
+  OverlayEntry _promotions;
+
+  void setPromotions(OverlayEntry overlay) {
+    _promotions = overlay;
+    notifyListeners();
+  }
+
+  OverlayEntry get promotions {
+    return _promotions;
+  }
 
   void initialize() {
     _initialized = true;

@@ -28,6 +28,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   }
 
   _showOverlay(BuildContext ctx) async {
+    await Future.delayed(Duration(seconds: 1));
     var provider = Provider.of<AppProvider>(ctx, listen: false);
     var _initialized = provider.initialized;
     if (!_initialized) {
@@ -36,7 +37,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
         builder: (ctx) => ovrl.MyOverlay(),
         maintainState: false,
       );
-      await Future.delayed(Duration(seconds: 1));
+      provider.setPromotions(overlayEntry);
       overlayState.insert(overlayEntry);
       provider.initialize();
     }

@@ -24,7 +24,9 @@ class MyOverlay extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var vertPadding = MediaQuery.of(context).padding.vertical;
     return Dismissible(
-      onDismissed: (_) {},
+      onDismissed: (_) {
+        Provider.of<AppProvider>(context, listen: false).promotions.remove();
+      },
       direction: DismissDirection.up,
       key: UniqueKey(),
       child: Center(
@@ -57,7 +59,11 @@ class MyOverlay extends StatelessWidget {
                         child: FlatButton(
                           padding: EdgeInsets.all(0),
                           child: Icon(Icons.close),
-                          onPressed: () {},
+                          onPressed: () {
+                            Provider.of<AppProvider>(context, listen: false)
+                                .promotions
+                                .remove();
+                          },
                           //color: Theme.of(context).errorColor,
                         ),
                       ),
