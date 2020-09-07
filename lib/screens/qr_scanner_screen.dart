@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:vibration/vibration.dart';
 
 void main() => runApp(MaterialApp(home: QrCodeScanner()));
 
@@ -25,6 +26,16 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
   var cameraState = frontCamera;
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  Future<void> vibrate() async {
+    if (await Vibration.hasCustomVibrationsSupport()) {
+      Vibration.vibrate(duration: 300);
+    } else {
+      Vibration.vibrate();
+      await Future.delayed(Duration(milliseconds: 500));
+      Vibration.vibrate();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +63,6 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text('This is the result of scan: $qrText'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,8 +84,10 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                               }
                             }
                           },
-                          child:
-                              Text(flashState, style: TextStyle(fontSize: 20)),
+                          child: flashState == flashOn
+                              ? Icon(Icons.flash_on)
+                              : Icon(Icons.flash_off),
+                          //Text(flashState, style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       Container(
@@ -95,32 +107,9 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                               }
                             }
                           },
-                          child:
-                              Text(cameraState, style: TextStyle(fontSize: 20)),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.all(8),
-                        child: RaisedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(qrText);
-                          },
-                          child: Text('STOP', style: TextStyle(fontSize: 20)),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(8),
-                        child: RaisedButton(
-                          onPressed: () {
-                            controller?.resumeCamera();
-                          },
-                          child: Text('resume', style: TextStyle(fontSize: 20)),
+                          child: cameraState == frontCamera
+                              ? Icon(Icons.camera_front)
+                              : Icon(Icons.camera_rear),
                         ),
                       )
                     ],
@@ -144,10 +133,11 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
+    controller?.pauseCamera();
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        qrText = scanData;
-      });
+      controller.dispose();
+      Navigator.of(context).pop(scanData);
+      vibrate();
     });
   }
 
