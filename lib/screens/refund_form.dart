@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/qr_scanner.dart';
+import '../widgets/qr_scanner_item.dart';
 import '../widgets/image_input.dart';
 
 class RefundForm extends StatefulWidget {
@@ -10,7 +10,12 @@ class RefundForm extends StatefulWidget {
 }
 
 class _RefundFormState extends State<RefundForm> {
-  final _titleController = TextEditingController();
+  final titleController = TextEditingController();
+  String qrCode;
+  void getQrCode(String code) {
+    qrCode = code;
+    titleController.text = code;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,7 @@ class _RefundFormState extends State<RefundForm> {
                   children: <Widget>[
                     TextField(
                       decoration: InputDecoration(labelText: 'Nazwa Produktu'),
-                      controller: _titleController,
+                      controller: titleController,
                     ),
                     Divider(),
                     TextField(
@@ -47,7 +52,7 @@ class _RefundFormState extends State<RefundForm> {
                       height: 10,
                     ),
                     ImageInput(),
-                    QrScanner(),
+                    QrScanner(getQrCode),
                   ],
                 ),
               ),
