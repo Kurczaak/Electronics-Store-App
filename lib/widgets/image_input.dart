@@ -13,12 +13,17 @@ class ImageInput extends StatefulWidget {
 class _ImageInputState extends State<ImageInput> {
   final List<File> savedImages = [];
 
+  void removePicture(int index) {
+    setState(() {
+      savedImages.removeAt(index);
+    });
+  }
+
   Future<void> _takePicture() async {
     final picker = ImagePicker();
     final image = await picker.getImage(
-      source: ImageSource.gallery,
-
-      // maxWidth: 600,
+      source: ImageSource.camera,
+      maxWidth: 600,
     );
     if (image == null)
       return;
@@ -36,46 +41,85 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return ListView(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       children: [
-        Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Colors.grey,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            FlatButton.icon(
+              icon: Icon(Icons.camera),
+              label: Text('Zrób zdjęcie'),
+              textColor: Theme.of(context).cursorColor,
+              onPressed: _takePicture,
             ),
-          ),
+            FlatButton.icon(
+              icon: Icon(Icons.perm_media),
+              label: Text('Dodaj z galerii'),
+              textColor: Theme.of(context).cursorColor,
+              onPressed: _takePicture,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Text(
+                savedImages.length.toString() + '/5',
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  color: Theme.of(context).hintColor,
+                ),
+              ),
+            ),
+          ],
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height / 5,
           child: savedImages.isEmpty
               ? Text(
-                  'Brak zdjęcia',
+                  'Brak zdjęć',
                   textAlign: TextAlign.center,
                 )
               : GridView(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
+                      mainAxisSpacing: 4, crossAxisCount: 1),
+                  scrollDirection: Axis.horizontal,
                   children: [
                     ...(savedImages).map((img) {
-                      return Image.file(
-                        img,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Stack(
+                          children: [
+                            Image.file(
+                              img,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: CircleAvatar(
+                                radius: 20,
+                                backgroundColor: Colors.white70,
+                                child: IconButton(
+                                  alignment: Alignment.center,
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: Colors.black,
+                                  ),
+                                  onPressed: () {
+                                    removePicture(savedImages.indexOf(img));
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       );
                     }).toList(),
                   ],
                 ),
-          alignment: Alignment.center,
         ),
         SizedBox(width: 10),
-        Expanded(
-          child: FlatButton.icon(
-            icon: Icon(Icons.camera),
-            label: Text('Zrób zdjęcie'),
-            textColor: Theme.of(context).cursorColor,
-            onPressed: _takePicture,
-          ),
-        ),
       ],
     );
   }
