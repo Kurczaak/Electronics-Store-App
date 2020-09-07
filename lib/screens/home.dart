@@ -35,6 +35,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
     var provider = Provider.of<AppProvider>(ctx, listen: false);
     var _initialized = provider.initialized;
     if (!_initialized) {
+      provider.initialize();
       var overlayState = Overlay.of(ctx);
       var overlayEntry = OverlayEntry(
         builder: (ctx) => ovrl.MyOverlay(),
@@ -42,7 +43,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
       );
       provider.setPromotions(overlayEntry);
       overlayState.insert(overlayEntry);
-      provider.initialize();
     }
   }
 

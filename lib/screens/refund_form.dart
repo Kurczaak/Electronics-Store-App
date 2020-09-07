@@ -45,6 +45,7 @@ class _RefundFormState extends State<RefundForm> {
                     Divider(),
                     TextField(
                       decoration: InputDecoration(labelText: 'Opis'),
+                      maxLength: 600,
                       maxLines: 5,
                     ),
                     Divider(),
