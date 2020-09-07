@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as syspaths;
 
 class ImageInput extends StatefulWidget {
   @override
@@ -9,17 +11,26 @@ class ImageInput extends StatefulWidget {
 }
 
 class _ImageInputState extends State<ImageInput> {
-  File _storedImage;
+  final List<File> savedImages = [];
 
   Future<void> _takePicture() async {
     final picker = ImagePicker();
-    final imageFile = await picker.getImage(
+    final image = await picker.getImage(
       source: ImageSource.camera,
       maxWidth: 600,
     );
-    setState(() {
-      _storedImage = File(imageFile.path);
-    });
+    if (image == null)
+      return;
+    else {
+      final imageFile = File(image.path);
+      final appDir = await syspaths.getApplicationDocumentsDirectory();
+      final fileName = path.basename(imageFile.path);
+      final storedImage = await imageFile.copy('${appDir.path}/$fileName');
+
+      setState(() {
+        savedImages.add(storedImage);
+      });
+    }
   }
 
   @override
@@ -35,15 +46,23 @@ class _ImageInputState extends State<ImageInput> {
               color: Colors.grey,
             ),
           ),
-          child: _storedImage != null
-              ? Image.file(
-                  _storedImage,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                )
-              : Text(
+          child: savedImages.isEmpty
+              ? Text(
                   'Brak zdjęcia',
                   textAlign: TextAlign.center,
+                )
+              : GridView(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  children: [
+                    ...(savedImages).map((img) {
+                      return Image.file(
+                        img,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      );
+                    }).toList(),
+                  ],
                 ),
           alignment: Alignment.center,
         ),

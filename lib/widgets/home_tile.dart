@@ -25,16 +25,6 @@ class HomeTile extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 5),
           height: 30,
           alignment: Alignment.bottomRight,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.black12,
-                Colors.black87,
-              ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-          ),
           child: FittedBox(
             child: Text(
               text,

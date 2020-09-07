@@ -31,7 +31,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   }
 
   _showOverlay(BuildContext ctx) async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: 200));
     var provider = Provider.of<AppProvider>(ctx, listen: false);
     var _initialized = provider.initialized;
     if (!_initialized) {
@@ -75,20 +75,50 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                         onTap: () => Navigator.of(context)
                             .pushNamed(RefundForm.routeName),
                         child: HomeTile(
-                            Icon(Icons.ac_unit), "Nasza Oferta", Colors.amber)),
+                            Icon(
+                              Icons.ac_unit,
+                              color: Colors.white,
+                            ),
+                            "Nasza Oferta",
+                            Colors.amber)),
                     GestureDetector(
                       onTap: () =>
                           Navigator.of(context).pushNamed(RefundForm.routeName),
-                      child: HomeTile(Icon(Icons.account_balance_wallet),
-                          "Wypełnij formularz", Colors.blue),
+                      child: HomeTile(
+                          Icon(
+                            Icons.account_balance_wallet,
+                            color: Colors.white,
+                          ),
+                          "Wypełnij formularz",
+                          Colors.blue),
                     ),
                     HomeTile(
-                        Icon(Icons.compare_arrows), "Tekst 1", Colors.indigo),
+                        Icon(
+                          Icons.compare_arrows,
+                          color: Colors.white,
+                        ),
+                        "Tekst 1",
+                        Colors.indigo),
                     HomeTile(
-                        Icon(Icons.phonelink_ring), "Tekst 2", Colors.orange),
-                    HomeTile(Icon(Icons.settings_ethernet), "Tekst 3",
+                        Icon(
+                          Icons.phonelink_ring,
+                          color: Colors.white,
+                        ),
+                        "Tekst 2",
+                        Colors.orange),
+                    HomeTile(
+                        Icon(
+                          Icons.settings_ethernet,
+                          color: Colors.white,
+                        ),
+                        "Tekst 3",
                         Colors.purple),
-                    HomeTile(Icon(Icons.not_listed_location), "Tekst 4",
+                    HomeTile(
+                        Icon(
+                          Icons.not_listed_location,
+                          color: Colors.white,
+                        ),
+                        "Tekst 4",
                         Colors.yellow),
                   ],
                 ),
