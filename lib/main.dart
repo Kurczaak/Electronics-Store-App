@@ -6,6 +6,10 @@ import 'package:restaurant_ui_kit/util/const.dart';
 import 'package:restaurant_ui_kit/widgets/refund_form_widgets/qr_scanner_item.dart';
 import './screens/refund_form.dart';
 import './screens/qr_scanner_screen.dart';
+import 'screens/offer_screen.dart';
+import './providers/products.dart';
+import './providers/models/product.dart';
+import './screens/add_product.dart';
 
 import 'util/const.dart';
 
@@ -14,6 +18,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppProvider()),
+        ChangeNotifierProvider(create: (_) => Products()),
       ],
       child: MyApp(),
     ),
@@ -36,6 +41,8 @@ class MyApp extends StatelessWidget {
             routes: {
               RefundForm.routeName: (ctx) => RefundForm(),
               QrCodeScanner.routeName: (ctx) => QrCodeScanner(),
+              OfferScreen.routeName: (ctx) => OfferScreen(),
+              AddProductScreen.routeName: (ctx) => AddProductScreen(),
             });
       },
     );

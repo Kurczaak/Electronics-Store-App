@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_ui_kit/screens/add_product.dart';
 import 'package:restaurant_ui_kit/screens/dishes.dart';
 import 'package:restaurant_ui_kit/screens/refund_form.dart';
 import 'package:restaurant_ui_kit/widgets/grid_product.dart';
@@ -12,6 +13,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../providers/app_provider.dart';
 import '../widgets/home_tile.dart';
 import './refund_form.dart';
+import './offer_screen.dart';
 
 import '../widgets/overlay.dart' as ovrl;
 
@@ -73,7 +75,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                   children: [
                     GestureDetector(
                         onTap: () => Navigator.of(context)
-                            .pushNamed(RefundForm.routeName),
+                            .pushNamed(OfferScreen.routeName),
                         child: HomeTile(
                             Icon(
                               Icons.ac_unit,
@@ -92,13 +94,17 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           "Wypełnij formularz",
                           Colors.blue),
                     ),
-                    HomeTile(
-                        Icon(
-                          Icons.compare_arrows,
-                          color: Colors.white,
-                        ),
-                        "Tekst 1",
-                        Colors.indigo),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(AddProductScreen.routeName),
+                      child: HomeTile(
+                          Icon(
+                            Icons.compare_arrows,
+                            color: Colors.white,
+                          ),
+                          "Dodaj produkt",
+                          Colors.indigo),
+                    ),
                     HomeTile(
                         Icon(
                           Icons.phonelink_ring,

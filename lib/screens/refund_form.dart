@@ -114,6 +114,7 @@ class _RefundFormState extends State<RefundForm> {
           title: Text('Wypełnij formularz zwrotu'),
         ),
         body: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
@@ -128,6 +129,8 @@ class _RefundFormState extends State<RefundForm> {
                       FlatButton(
                         child: Text('Tak'),
                         onPressed: () {
+                          _saveForm();
+
                           Navigator.of(ctx).pop();
                           Navigator.of(ctx).pop();
                         },
