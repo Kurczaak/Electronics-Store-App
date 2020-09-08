@@ -55,7 +55,7 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  ThemeData getTheme(value) {
+  ThemeData get getTheme {
     return theme;
   }
 
