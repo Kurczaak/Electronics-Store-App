@@ -70,6 +70,7 @@ class _RefundFormState extends State<RefundForm> {
               onPressed: () {
                 Navigator.of(ctx).pop();
                 _saveForm();
+                Navigator.of(ctx).pop();
               },
             ),
             FlatButton(
@@ -219,8 +220,8 @@ class _RefundFormState extends State<RefundForm> {
                         ImageInput(getNumImg, validate),
                         Divider(),
                         SendFormButton(
-                          onPressed: () => onSendButtonPressed(validate()),
-                          color: validate()
+                          onPressed: () => onSendButtonPressed(validForm),
+                          color: validForm
                               ? Theme.of(context).accentColor
                               : Colors.grey,
                         ),
