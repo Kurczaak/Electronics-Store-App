@@ -19,6 +19,7 @@ class GridProduct extends StatelessWidget {
         children: <Widget>[
           Stack(
             children: <Widget>[
+              // Image
               Container(
                 height: MediaQuery.of(context).size.height / 3.6,
                 width: MediaQuery.of(context).size.width / 2.2,
@@ -42,6 +43,7 @@ class GridProduct extends StatelessWidget {
                   ),
                 ),
               ),
+              // Price
               Positioned(
                 left: 5,
                 top: 3.0,
@@ -63,6 +65,7 @@ class GridProduct extends StatelessWidget {
                   ),
                 ),
               ),
+              // Adding to Favorites
               Positioned(
                 right: -10.0,
                 bottom: 3.0,
@@ -94,6 +97,7 @@ class GridProduct extends StatelessWidget {
               ),
             ],
           ),
+          // Title
           Padding(
             padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
             child: Container(
@@ -112,6 +116,7 @@ class GridProduct extends StatelessWidget {
               ),
             ),
           ),
+          // Star rating
           Padding(
             padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
             child: Row(

@@ -3,12 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_ui_kit/providers/app_provider.dart';
 import 'package:restaurant_ui_kit/screens/splash.dart';
 import 'package:restaurant_ui_kit/util/const.dart';
-import 'package:restaurant_ui_kit/widgets/refund_form_widgets/qr_scanner_item.dart';
+
 import './screens/refund_form.dart';
 import './screens/qr_scanner_screen.dart';
 import 'screens/offer_screen.dart';
 import './providers/products.dart';
-import './providers/models/product.dart';
 import './screens/add_product.dart';
 
 import 'util/const.dart';

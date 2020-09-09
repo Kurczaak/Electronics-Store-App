@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_ui_kit/screens/qr_scanner_screen.dart';
-import 'package:provider/provider.dart';
-import '../../providers/app_provider.dart';
-import 'package:restaurant_ui_kit/util/const.dart';
 
 class QrScanner extends StatelessWidget {
   final passQrCode;

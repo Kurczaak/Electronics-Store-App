@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_ui_kit/providers/app_provider.dart';
-import 'package:restaurant_ui_kit/providers/models/product.dart';
-import '../util/foods.dart';
-import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:restaurant_ui_kit/widgets/slider_item.dart';
 import '../screens/offer_screen.dart';
-
-import 'package:provider/provider.dart';
-import '../providers/app_provider.dart';
-import '../providers/products.dart';
 
 class MyOverlay extends StatelessWidget {
   final promotions;
@@ -24,14 +16,11 @@ class MyOverlay extends StatelessWidget {
     return result;
   }
 
-  int _current = 0;
-
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       onDismissed: (_) {
         Navigator.of(context).pop();
-        //Provider.of<AppProvider>(context, listen: false).promotions.remove();
       },
       direction: DismissDirection.up,
       key: UniqueKey(),
@@ -83,11 +72,8 @@ class MyOverlay extends StatelessWidget {
                             return SliderItem(product);
                           }).toList(),
                         ],
-
                         autoPlay: true,
-                        //enlargeCenterPage: true,
                         viewportFraction: 1.0,
-//              aspectRatio: 2.0,
                       ),
                 Align(
                   child: RaisedButton(

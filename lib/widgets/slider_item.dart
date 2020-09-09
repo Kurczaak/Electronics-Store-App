@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_ui_kit/screens/details.dart';
 import 'package:restaurant_ui_kit/util/const.dart';
-import 'package:restaurant_ui_kit/widgets/smooth_star_rating.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 import '../providers/models/product.dart';
 
 class SliderItem extends StatefulWidget {

@@ -87,7 +87,6 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
                           child: flashState == flashOn
                               ? Icon(Icons.flash_on)
                               : Icon(Icons.flash_off),
-                          //Text(flashState, style: TextStyle(fontSize: 20)),
                         ),
                       ),
                       Container(

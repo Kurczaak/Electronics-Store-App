@@ -15,16 +15,14 @@ class OfferScreen extends StatefulWidget {
 
 class _OfferScreenState extends State<OfferScreen>
     with AutomaticKeepAliveClientMixin<OfferScreen> {
-  bool _isLoading = false;
+  bool _isLoading = true;
 
   void initState() {
-    //Provider.of<Products>(context).fetchAndSerProducts();
     setState(() {
       _isLoading = true;
     });
 
     Future.delayed(Duration.zero).then((_) {
-      // Sort of a workaround
       Provider.of<Products>(context, listen: false)
           .fetchAndServeProducts()
           .then((_) => setState(() {
