@@ -52,27 +52,22 @@ class _OfferScreenState extends State<OfferScreen>
                 child: ListView(
                   children: <Widget>[
                     SizedBox(height: 10.0),
-                    Text(
-                      "My Favorite Items",
-                      style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
                     SizedBox(height: 10.0),
                     GridView.builder(
                       shrinkWrap: true,
                       primary: false,
                       physics: NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
                         crossAxisCount: 2,
                         childAspectRatio: MediaQuery.of(context).size.width /
                             (MediaQuery.of(context).size.height / 1.25),
                       ),
                       itemCount: products == null ? 0 : products.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GridProduct(products[index]);
-                      },
+                      itemBuilder: (BuildContext context, int index) =>
+                          ChangeNotifierProvider.value(
+                              value: products[index], child: GridProduct()),
                     ),
                     SizedBox(height: 30),
                   ],

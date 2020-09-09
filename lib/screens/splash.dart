@@ -4,22 +4,20 @@ import 'package:flutter/services.dart';
 import 'package:restaurant_ui_kit/screens/walkthrough.dart';
 import 'package:restaurant_ui_kit/util/const.dart';
 
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   startTimeout() {
-    return  Timer(Duration(seconds: 2), changeScreen);
+    return Timer(Duration(seconds: 2), changeScreen);
   }
 
-  changeScreen() async{
+  changeScreen() async {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
           return Walkthrough();
         },
       ),
@@ -33,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen> {
     startTimeout();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,13 +43,11 @@ class _SplashScreenState extends State<SplashScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Icon(
-                Icons.fastfood,
+                Icons.memory,
                 size: 150.0,
                 color: Theme.of(context).accentColor,
               ),
-
               SizedBox(width: 40.0),
-
               Container(
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(
@@ -73,6 +68,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-
-
 }

@@ -3,18 +3,19 @@ import 'package:restaurant_ui_kit/screens/details.dart';
 import 'package:restaurant_ui_kit/util/const.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import '../providers/models/product.dart';
+import 'package:provider/provider.dart';
+import 'dart:math';
 
 class GridProduct extends StatelessWidget {
-  final Product product;
-
-  GridProduct(this.product);
-
   @override
   Widget build(BuildContext context) {
+    var product = Provider.of<Product>(context, listen: true);
+    final scaffold = Scaffold.of(context);
     return InkWell(
       child: ListView(
         shrinkWrap: true,
         primary: false,
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Stack(
             children: <Widget>[
@@ -30,10 +31,40 @@ class GridProduct extends StatelessWidget {
                 ),
               ),
               Positioned(
+                left: 5,
+                top: 3.0,
+                child: CircleAvatar(
+                  foregroundColor: Colors.yellow,
+                  backgroundColor: Theme.of(context).accentColor,
+                  radius: 25,
+                  child: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: FittedBox(
+                      child: Text(
+                        '${product.price.toStringAsFixed(2)} zł',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
                 right: -10.0,
                 bottom: 3.0,
                 child: RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    try {
+                      await product.toggleFavorite();
+                    } catch (error) {
+                      scaffold.hideCurrentSnackBar();
+                      scaffold.showSnackBar(SnackBar(
+                        content: Text('Could not add to favorites!'),
+                      ));
+                    }
+                  },
                   fillColor: Colors.white,
                   shape: CircleBorder(),
                   elevation: 4.0,
@@ -53,13 +84,20 @@ class GridProduct extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
-            child: Text(
-              "${product.title}",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w900,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              height: max(MediaQuery.of(context).size.height / 30, 25),
+              child: FittedBox(
+                child: Text(
+                  "${product.title}",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w900,
+                  ),
+                  maxLines: 2,
+                ),
               ),
-              maxLines: 2,
             ),
           ),
           Padding(

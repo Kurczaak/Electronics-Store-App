@@ -210,7 +210,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             return null;
                           },
                           minLines: 1,
-                          maxLines: 3,
+                          maxLines: 10,
                           focusNode: _descriptionFocusNode,
                           keyboardType: TextInputType.multiline,
                           onSaved: (value) {
@@ -251,7 +251,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         child: SmoothStarRating(
                           color: Constants.ratingBG,
                           borderColor: Constants.ratingBG,
-                          rating: 3,
+                          rating: double.parse(_initValues['rate']),
                           isReadOnly: false,
                           size: 50,
                           filledIconData: Icons.star,

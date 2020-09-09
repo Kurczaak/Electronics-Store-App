@@ -35,7 +35,8 @@ class _FavoriteScreenState extends State<FavoriteScreen>
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context);
-    final products = productsData.items;
+    final products =
+        productsData.items.where((element) => element.isFavorite).toList();
     super.build(context);
     return Scaffold(
       body: RefreshIndicator(
@@ -65,9 +66,9 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                             (MediaQuery.of(context).size.height / 1.25),
                       ),
                       itemCount: products == null ? 0 : products.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GridProduct(products[index]);
-                      },
+                      itemBuilder: (BuildContext context, int index) =>
+                          ChangeNotifierProvider.value(
+                              value: products[index], child: GridProduct()),
                     ),
                     SizedBox(height: 30),
                   ],

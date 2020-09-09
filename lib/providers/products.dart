@@ -69,9 +69,10 @@ class Products with ChangeNotifier {
         url,
         body: product.toJsonFormat(),
       );
+      final data = json.decode(response.body) as Map<String, dynamic>;
 
-      final newProduct = Product.fromProduct(product);
-      newProduct.id = json.decode(response.body)['name'];
+      final id = data['name'];
+      final newProduct = Product.newId(product, id);
 
       _items.add(newProduct);
       notifyListeners();
@@ -124,14 +125,13 @@ class Products with ChangeNotifier {
     const url = 'https://ecommerce-app-project.firebaseio.com/products.json';
     try {
       final response = await http.get(url);
-      final jsonBody = json.decode(response.body);
-      final data = jsonBody as Map<String, dynamic>;
+      final data = json.decode(response.body) as Map<String, dynamic>;
       if (data == null) return;
-
       final List<Product> loadedProducts = [];
       data.forEach(
         (key, value) {
-          final newProd = Product.fromMap(value);
+          final temp = Product.fromMap(value);
+          final newProd = Product.newId(temp, key);
           loadedProducts.add(newProd);
         },
       );

@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import './http_exception.dart';
+import 'package:http/http.dart' as http;
 
 enum Category { TV, AGD, Computers, Smartphones, RTV, undefinded }
 
-class Product {
+class Product with ChangeNotifier {
   String id;
   String title;
   String description;
@@ -124,6 +126,17 @@ class Product {
     this.isFavorite = another.isFavorite;
   }
 
+  Product.newisFavorite(Product another, bool isFavorite) {
+    this.id = another.id;
+    this.title = another.title;
+    this.description = another.description;
+    this.price = another.price;
+    this.imageUrl = another.imageUrl;
+    this.rate = another.rate;
+    this.category = another.category;
+    this.isFavorite = another.isFavorite;
+  }
+
   String toJsonFormat() {
     final Map<String, dynamic> mappedProduct = {
       'id': this.id,
@@ -176,5 +189,22 @@ class Product {
     return (Category.values.map((category) {
       return Product.categoryToString(category);
     }).toList());
+  }
+
+  Future<void> toggleFavorite() async {
+    final url =
+        'https://ecommerce-app-project.firebaseio.com/products/$id.json';
+    isFavorite = !isFavorite;
+    notifyListeners();
+    final response = await http.patch(
+      url,
+      body: this.toJsonFormat(),
+    );
+    if (response.statusCode >= 400) {
+      isFavorite = !isFavorite;
+      notifyListeners();
+      throw HttpException(
+          'Favoriting failed: ' + response.statusCode.toString());
+    }
   }
 }

@@ -33,11 +33,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   }
 
   _showOverlay(BuildContext ctx) async {
-    await Future.delayed(Duration(milliseconds: 200));
     var provider = Provider.of<AppProvider>(ctx, listen: false);
     var _initialized = provider.initialized;
     if (!_initialized) {
       provider.initialize();
+      await Future.delayed(Duration(milliseconds: 200));
       var overlayState = Overlay.of(ctx);
       var overlayEntry = OverlayEntry(
         builder: (ctx) => ovrl.MyOverlay(),
@@ -47,8 +47,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
       overlayState.insert(overlayEntry);
     }
   }
-
-  int _current = 0;
 
   @override
   Widget build(BuildContext context) {
