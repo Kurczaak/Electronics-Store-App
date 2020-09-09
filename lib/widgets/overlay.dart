@@ -79,13 +79,7 @@ class MyOverlay extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.45,
                         items: [
                           ...promotions.map((product) {
-                            return SliderItem(
-                              img: product.imageUrl,
-                              isFav: product.isFavorite,
-                              name: product.title,
-                              raters: 253,
-                              rating: product.rate,
-                            );
+                            return SliderItem(product);
                           }).toList(),
                         ],
 

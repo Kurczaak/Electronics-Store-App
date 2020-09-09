@@ -45,13 +45,14 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
       setState(() {
         _initialized = true;
       });
+
       final provider = Provider.of<Products>(context, listen: true);
       await provider.fetchAndServeProducts();
       final products = provider.items;
       showDialog(
         context: context,
         child: products.isEmpty
-            ? CircularProgressIndicator()
+            ? Center(child: CircularProgressIndicator())
             : ovrl.MyOverlay(products),
         barrierColor: Colors.black26,
       );

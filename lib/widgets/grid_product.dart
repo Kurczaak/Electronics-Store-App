@@ -27,6 +27,18 @@ class GridProduct extends StatelessWidget {
                   child: Image.network(
                     "${product.imageUrl}",
                     fit: BoxFit.contain,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes
+                              : null,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -128,7 +140,7 @@ class GridProduct extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) {
-              return ProductDetails();
+              return ProductDetails(product);
             },
           ),
         );
