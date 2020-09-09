@@ -124,7 +124,8 @@ class _RefundFormState extends State<RefundForm> {
                   context: context,
                   builder: (ctx) => AlertDialog(
                     title: Text('Powrót'),
-                    content: Text('Czy na pewno chcesz wyjść?'),
+                    content: Text(
+                        'Czy na pewno chcesz powrócić do menu gównego? Wprowadzone dane zostaną utracone'),
                     actions: [
                       FlatButton(
                         child: Text('Tak'),

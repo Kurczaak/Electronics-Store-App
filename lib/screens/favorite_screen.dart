@@ -40,41 +40,39 @@ class _FavoriteScreenState extends State<FavoriteScreen>
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: productsData.fetchAndServeProducts,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-          child: ListView(
-            children: <Widget>[
-              SizedBox(height: 10.0),
-              Text(
-                "My Favorite Items",
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w800,
+        child: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                child: ListView(
+                  children: <Widget>[
+                    SizedBox(height: 10.0),
+                    Text(
+                      "My Favorite Items",
+                      style: TextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      primary: false,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: MediaQuery.of(context).size.width /
+                            (MediaQuery.of(context).size.height / 1.25),
+                      ),
+                      itemCount: products == null ? 0 : products.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GridProduct(products[index]);
+                      },
+                    ),
+                    SizedBox(height: 30),
+                  ],
                 ),
               ),
-              SizedBox(height: 10.0),
-              GridView.builder(
-                shrinkWrap: true,
-                primary: false,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: MediaQuery.of(context).size.width /
-                      (MediaQuery.of(context).size.height / 1.25),
-                ),
-                itemCount: products == null ? 0 : products.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return GridTile(
-                    child: Image.network(products[index].imageUrl),
-                    header: Text(products[index].title),
-                    footer: Text(products[index].description),
-                  );
-                },
-              ),
-              SizedBox(height: 30),
-            ],
-          ),
-        ),
       ),
     );
   }

@@ -4,7 +4,6 @@ import 'package:restaurant_ui_kit/util/foods.dart';
 import 'package:restaurant_ui_kit/widgets/badge.dart';
 import 'package:restaurant_ui_kit/widgets/grid_product.dart';
 
-
 class DishesScreen extends StatefulWidget {
   @override
   _DishesScreenState createState() => _DishesScreenState();
@@ -20,7 +19,7 @@ class _DishesScreenState extends State<DishesScreen> {
           icon: Icon(
             Icons.keyboard_backspace,
           ),
-          onPressed: ()=>Navigator.pop(context),
+          onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
         title: Text(
@@ -33,10 +32,10 @@ class _DishesScreenState extends State<DishesScreen> {
               icon: Icons.notifications,
               size: 22.0,
             ),
-            onPressed: (){
+            onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (BuildContext context){
+                  builder: (BuildContext context) {
                     return Notifications();
                   },
                 ),
@@ -45,11 +44,9 @@ class _DishesScreenState extends State<DishesScreen> {
           ),
         ],
       ),
-
       body: Padding(
-          padding: EdgeInsets.fromLTRB(10.0,0,10.0,0),
+        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
-
           children: <Widget>[
             Text(
               "Chinese",
@@ -60,7 +57,6 @@ class _DishesScreenState extends State<DishesScreen> {
               maxLines: 2,
             ),
             Divider(),
-
             GridView.builder(
               shrinkWrap: true,
               primary: false,
@@ -73,16 +69,16 @@ class _DishesScreenState extends State<DishesScreen> {
               itemCount: 4,
               itemBuilder: (BuildContext context, int index) {
                 Map food = foods[index];
-                return GridProduct(
-                  img: food['img'],
-                  isFav: false,
-                  name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
-                );
+                // return GridProduct(
+                //   img: food['img'],
+                //   isFav: false,
+                //   name: food['name'],
+                //   rating: 5.0,
+                //   raters: 23,
+                // );
+                return Text('TODO');
               },
             ),
-
             SizedBox(height: 20.0),
             Text(
               "Italian",
@@ -93,7 +89,6 @@ class _DishesScreenState extends State<DishesScreen> {
               maxLines: 2,
             ),
             Divider(),
-
             GridView.builder(
               shrinkWrap: true,
               primary: false,
@@ -106,16 +101,16 @@ class _DishesScreenState extends State<DishesScreen> {
               itemCount: 4,
               itemBuilder: (BuildContext context, int index) {
                 Map food = foods[index];
-                return GridProduct(
-                  img: food['img'],
-                  isFav: false,
-                  name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
-                );
+                // return GridProduct(
+                //   img: food['img'],
+                //   isFav: false,
+                //   name: food['name'],
+                //   rating: 5.0,
+                //   raters: 23,
+                // );
+                return Text('TODO');
               },
             ),
-
             SizedBox(height: 20.0),
             Text(
               "African",
@@ -126,7 +121,6 @@ class _DishesScreenState extends State<DishesScreen> {
               maxLines: 2,
             ),
             Divider(),
-
             GridView.builder(
               shrinkWrap: true,
               primary: false,
@@ -139,13 +133,14 @@ class _DishesScreenState extends State<DishesScreen> {
               itemCount: 4,
               itemBuilder: (BuildContext context, int index) {
                 Map food = foods[index];
-                return GridProduct(
-                  img: food['img'],
-                  isFav: false,
-                  name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
-                );
+                // return GridProduct(
+                //   img: food['img'],
+                //   isFav: false,
+                //   name: food['name'],
+                //   rating: 5.0,
+                //   raters: 23,
+                // );
+                return Text('TODO');
               },
             ),
           ],

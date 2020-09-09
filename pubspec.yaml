@@ -32,6 +32,7 @@ dependencies:
   vibration: ^1.4.0
   multi_image_picker: ^4.7.12
   flutter_absolute_path: ^1.0.6
+  smooth_star_rating: ^1.1.1
 
 
 

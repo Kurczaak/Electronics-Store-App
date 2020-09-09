@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_ui_kit/screens/details.dart';
 import 'package:restaurant_ui_kit/util/const.dart';
-import 'package:restaurant_ui_kit/widgets/smooth_star_rating.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
+import '../providers/models/product.dart';
 
 class GridProduct extends StatelessWidget {
-  final String name;
-  final String img;
-  final bool isFav;
-  final double rating;
-  final int raters;
+  final Product product;
 
-  GridProduct(
-      {Key key,
-      @required this.name,
-      @required this.img,
-      @required this.isFav,
-      @required this.rating,
-      @required this.raters})
-      : super(key: key);
+  GridProduct(this.product);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +23,8 @@ class GridProduct extends StatelessWidget {
                 width: MediaQuery.of(context).size.width / 2.2,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    "$img",
+                  child: Image.network(
+                    "${product.imageUrl}",
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -50,7 +40,9 @@ class GridProduct extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(5),
                     child: Icon(
-                      isFav ? Icons.favorite : Icons.favorite_border,
+                      product.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
                       color: Colors.red,
                       size: 17,
                     ),
@@ -62,7 +54,7 @@ class GridProduct extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
             child: Text(
-              "$name",
+              "${product.title}",
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w900,
@@ -73,20 +65,22 @@ class GridProduct extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
             child: Row(
-              children: <Widget>[
+              children: [
                 SmoothStarRating(
                   starCount: 5,
                   color: Constants.ratingBG,
+                  filledIconData: Icons.star,
+                  halfFilledIconData: Icons.star_half,
+                  defaultIconData: Icons.star_border,
+                  borderColor: Constants.ratingBG,
                   allowHalfRating: true,
-                  rating: rating,
+                  rating: product.rate,
                   size: 10.0,
                 ),
-                Text(
-                  " $rating ($raters Reviews)",
-                  style: TextStyle(
-                    fontSize: 11.0,
-                  ),
-                ),
+                Text(" ${product.rate} (${253} Reviews)",
+                    style: TextStyle(
+                      fontSize: 11.0,
+                    )),
               ],
             ),
           ),
