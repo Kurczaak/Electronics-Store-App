@@ -87,7 +87,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                             .pushNamed(OfferScreen.routeName),
                         child: HomeTile(
                             Icon(
-                              Icons.ac_unit,
+                              Icons.shopping_basket,
                               color: Colors.white,
                             ),
                             "Nasza Oferta",
@@ -97,7 +97,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           Navigator.of(context).pushNamed(RefundForm.routeName),
                       child: HomeTile(
                           Icon(
-                            Icons.account_balance_wallet,
+                            Icons.subtitles,
                             color: Colors.white,
                           ),
                           "Wypełnij formularz",
@@ -108,7 +108,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           .pushNamed(AddProductScreen.routeName),
                       child: HomeTile(
                           Icon(
-                            Icons.compare_arrows,
+                            Icons.add_to_queue,
                             color: Colors.white,
                           ),
                           "Dodaj produkt",
@@ -120,7 +120,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           color: Colors.white,
                         ),
                         "Tekst 2",
-                        Colors.orange),
+                        Colors.blueGrey[400]),
                     HomeTile(
                         Icon(
                           Icons.settings_ethernet,

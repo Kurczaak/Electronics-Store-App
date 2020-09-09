@@ -17,14 +17,17 @@ class HomeTile extends StatelessWidget {
     return Container(
       color: color,
       child: GridTile(
-        child: FittedBox(
-          fit: BoxFit.contain,
-          child: picture,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: picture,
+          ),
         ),
         footer: Container(
           padding: EdgeInsets.symmetric(horizontal: 5),
           height: 30,
-          alignment: Alignment.bottomRight,
+          alignment: Alignment.bottomCenter,
           child: FittedBox(
             child: Text(
               text,

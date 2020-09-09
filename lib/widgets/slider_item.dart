@@ -109,6 +109,7 @@ class _SliderItemState extends State<SliderItem> {
         ],
       ),
       onTap: () {
+        Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) {

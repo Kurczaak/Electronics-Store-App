@@ -5,6 +5,7 @@ import '../util/foods.dart';
 import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:restaurant_ui_kit/widgets/slider_item.dart';
+import '../screens/offer_screen.dart';
 
 import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
@@ -94,9 +95,10 @@ class MyOverlay extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Text('Przejdź do oferty'),
+                    child: Text('Sprawdź inne produkty'),
                     onPressed: () {
                       Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed(OfferScreen.routeName);
                     },
                   ),
                 ),

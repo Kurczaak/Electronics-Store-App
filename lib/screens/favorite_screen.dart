@@ -49,7 +49,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   children: <Widget>[
                     SizedBox(height: 10.0),
                     Text(
-                      "My Favorite Items",
+                      "Ulubione",
                       style: TextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.w800,
