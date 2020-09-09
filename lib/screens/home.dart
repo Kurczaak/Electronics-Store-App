@@ -15,6 +15,10 @@ import '../widgets/home_tile.dart';
 import './refund_form.dart';
 import './offer_screen.dart';
 
+import 'package:provider/provider.dart';
+import '../providers/app_provider.dart';
+import '../providers/products.dart';
+
 import '../widgets/overlay.dart' as ovrl;
 
 class Home extends StatefulWidget {
@@ -23,6 +27,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
+  var overlayState;
+  var overlayEntry;
+  bool _initialized = false;
+
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
     for (var i = 0; i < list.length; i++) {
@@ -32,25 +40,27 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
     return result;
   }
 
-  _showOverlay(BuildContext ctx) async {
-    var provider = Provider.of<AppProvider>(ctx, listen: false);
-    var _initialized = provider.initialized;
+  Future<void> showOverlay(BuildContext context) async {
     if (!_initialized) {
-      provider.initialize();
-      await Future.delayed(Duration(milliseconds: 200));
-      var overlayState = Overlay.of(ctx);
-      var overlayEntry = OverlayEntry(
-        builder: (ctx) => ovrl.MyOverlay(),
-        maintainState: false,
+      setState(() {
+        _initialized = true;
+      });
+      final provider = Provider.of<Products>(context, listen: true);
+      await provider.fetchAndServeProducts();
+      final products = provider.items;
+      showDialog(
+        context: context,
+        child: products.isEmpty
+            ? CircularProgressIndicator()
+            : ovrl.MyOverlay(products),
+        barrierColor: Colors.black26,
       );
-      provider.setPromotions(overlayEntry);
-      overlayState.insert(overlayEntry);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _showOverlay(context);
+    showOverlay(context);
     super.build(context);
     return Scaffold(
       body: Stack(

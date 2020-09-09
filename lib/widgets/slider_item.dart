@@ -32,7 +32,7 @@ class SliderItem extends StatelessWidget {
               Container(
                 height: MediaQuery.of(context).size.height / 3.2,
                 width: MediaQuery.of(context).size.width,
-                child: Image.asset(
+                child: Image.network(
                   "$img",
                   fit: BoxFit.contain,
                 ),

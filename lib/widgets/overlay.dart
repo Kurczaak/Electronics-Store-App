@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_ui_kit/providers/app_provider.dart';
+import 'package:restaurant_ui_kit/providers/models/product.dart';
 import '../util/foods.dart';
 import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,8 +8,12 @@ import 'package:restaurant_ui_kit/widgets/slider_item.dart';
 
 import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
+import '../providers/products.dart';
 
 class MyOverlay extends StatelessWidget {
+  final promotions;
+  MyOverlay(this.promotions);
+
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
     for (var i = 0; i < list.length; i++) {
@@ -18,14 +23,14 @@ class MyOverlay extends StatelessWidget {
     return result;
   }
 
+  int _current = 0;
+
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    var vertPadding = MediaQuery.of(context).padding.vertical;
     return Dismissible(
       onDismissed: (_) {
-        Provider.of<AppProvider>(context, listen: false).promotions.remove();
+        Navigator.of(context).pop();
+        //Provider.of<AppProvider>(context, listen: false).promotions.remove();
       },
       direction: DismissDirection.up,
       key: UniqueKey(),
@@ -60,40 +65,35 @@ class MyOverlay extends StatelessWidget {
                           padding: EdgeInsets.all(0),
                           child: Icon(Icons.close),
                           onPressed: () {
-                            Provider.of<AppProvider>(context, listen: false)
-                                .promotions
-                                .remove();
+                            Navigator.of(context).pop();
                           },
-                          //color: Theme.of(context).errorColor,
                         ),
                       ),
                     ],
                   ),
                 ),
-                CarouselSlider(
-                  autoPlayInterval: Duration(seconds: 5),
-                  height: MediaQuery.of(context).size.height * 0.45,
-                  items: map<Widget>(
-                    foods,
-                    (index, i) {
-                      Map food = foods[index];
-                      return SliderItem(
-                        img: food['img'],
-                        isFav: false,
-                        name: food['name'],
-                        rating: 5.0,
-                        raters: 23,
-                      );
-                    },
-                  ).toList(),
-                  autoPlay: true,
-                  //enlargeCenterPage: true,
-                  viewportFraction: 1.0,
+                promotions.isEmpty
+                    ? CircularProgressIndicator()
+                    : CarouselSlider(
+                        autoPlayInterval: Duration(seconds: 5),
+                        height: MediaQuery.of(context).size.height * 0.45,
+                        items: [
+                          ...promotions.map((product) {
+                            return SliderItem(
+                              img: product.imageUrl,
+                              isFav: product.isFavorite,
+                              name: product.title,
+                              raters: 253,
+                              rating: product.rate,
+                            );
+                          }).toList(),
+                        ],
+
+                        autoPlay: true,
+                        //enlargeCenterPage: true,
+                        viewportFraction: 1.0,
 //              aspectRatio: 2.0,
-                  onPageChanged: (index) {
-                    //TODO
-                  },
-                ),
+                      ),
                 Align(
                   child: RaisedButton(
                     elevation: 3,
