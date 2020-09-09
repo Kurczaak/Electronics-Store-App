@@ -48,7 +48,7 @@ class GridProduct extends StatelessWidget {
                 left: 5,
                 top: 3.0,
                 child: CircleAvatar(
-                  foregroundColor: Colors.yellow,
+                  foregroundColor: Theme.of(context).primaryColor,
                   backgroundColor: Theme.of(context).accentColor,
                   radius: 25,
                   child: Padding(
